@@ -48,3 +48,29 @@ jobs:
 
       - name: Push Docker image
         run: docker push sanjeevputhineedi/automated-cicd-webapp:latest
+          deploy:
+    needs: docker
+    runs-on: self-hosted
+
+    steps:
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Pull latest Docker image
+        run: docker pull sanjeevputhineedi/automated-cicd-webapp:latest
+
+      - name: Stop old container
+        run: docker stop automated-cicd-container || true
+
+      - name: Remove old container
+        run: docker rm automated-cicd-container || true
+
+      - name: Run new container
+        run: |
+          docker run -d \
+            --name automated-cicd-container \
+            -p 4000:4000 \
+            sanjeevputhineedi/automated-cicd-webapp:latest
