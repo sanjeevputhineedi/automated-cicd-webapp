@@ -48,7 +48,9 @@ jobs:
 
       - name: Push Docker image
         run: docker push sanjeevputhineedi/automated-cicd-webapp:latest
-          deploy:
+
+
+    deploy:
     needs: docker
     runs-on: self-hosted
 
@@ -59,7 +61,7 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Pull latest Docker image
+      - name: Pull Docker image
         run: docker pull sanjeevputhineedi/automated-cicd-webapp:latest
 
       - name: Stop old container
@@ -74,3 +76,7 @@ jobs:
             --name automated-cicd-container \
             -p 4000:4000 \
             sanjeevputhineedi/automated-cicd-webapp:latest
+
+      - name: Check running container
+        run: docker ps
+         
