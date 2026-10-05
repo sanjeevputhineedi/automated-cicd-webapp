@@ -186,6 +186,10 @@ function App() {
         </div>
 
         <div>
+         Guide : Dr.Kusuma
+        </div> 
+
+        <div>
           © 2026
         </div>
       </footer>
