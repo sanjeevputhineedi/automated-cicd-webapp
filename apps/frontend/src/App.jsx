@@ -186,7 +186,9 @@ function App() {
         </div>
 
         <div>
-        </div> 
+          Guide : Dr. Kusuma
+        </div>
+
 
         <div>
           © 2026
